@@ -1,0 +1,14 @@
+light.dc4f228dbe5f_192_168_0_140:
+  friendly_name: Led Cama
+light.dc4f228dcb00_192_168_0_141:
+  friendly_name: Led Plafon
+light.micro_dimmer_4d_ce_f9:
+  friendly_name: Luz Luna
+binary_sensor.open_close_sensor_45_f8_7c:
+  friendly_name: Puerta
+light.switchlinc_dimmer_4a_d0_12:
+  friendly_name: Luz Principal
+cover.micro_open_close_45_d7_ae:
+  friendly_name: Persiana Dia
+cover.micro_open_close_45_d7_e8:
+  friendly_name: Persiana Blackout

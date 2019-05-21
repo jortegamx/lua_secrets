@@ -1,0 +1,455 @@
+########### ESCENAS ################
+bienvenida:
+  sequence:
+    - service: remote.send_command
+      data:
+        entity_id: remote.chimenea
+        command: "CHIMON"
+    - service: light.turn_off
+      data:
+        entity_id: !secret principal
+    - service: light.turn_on
+      data:
+        entity_id: 
+          - !secret plafon
+          - light.dc4f228dbe5f_192_168_0_140
+        transition: 2
+        rgb_color: [255,0,0]
+    - service: light.turn_on
+      data:
+        entity_id: !secret luna
+    - service: remote.send_command
+      data:
+        entity_id: remote.proyector
+        command: "PROYON"
+    - service: cover.set_cover_position
+      data:
+        entity_id: !secret blackout
+        position: 60
+    - service: cover.set_cover_position
+      data:
+        entity_id: !secret dia
+        position: 0
+    - service: remote.send_command
+      data:
+        entity_id: remote.proyector
+        command: "PROYHDMI2"
+    - service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.adios_pressed
+  alias: Bienvenida
+
+luz_encendida:
+  sequence:
+    - service: light.turn_on
+      data:
+        entity_id: 
+          - !secret luna
+          - !secret principal
+    - service: light.turn_off
+      data:
+        entity_id: 
+          - !secret plafon
+          - !secret cama
+    - service: light.turn_on
+      data:
+        entity_id: 
+          - !secret plafon
+          - !secret cama
+        rgb_color: [255,255,255]
+  alias: Luz Encendida
+
+luz_apagada:
+  sequence:
+    - service: light.turn_off
+      data:
+        entity_id: 
+          - !secret principal
+          - !secret luna
+          - !secret plafon
+          - !secret cama
+  alias: Luz Apagada
+
+adios:
+  sequence:    
+    - service: remote.send_command
+      data:
+        entity_id: remote.proyector
+        command: "PROYHDMI2"
+    - service: remote.send_command
+      data:
+        entity_id: remote.proyector
+        command: "PROYOFF"
+    - delay:
+        seconds: 2
+    - service: remote.send_command
+      data:
+        entity_id: remote.proyector
+        command: "PROYOFF"
+    - service: remote.send_command
+      data:
+        entity_id: remote.proyector
+        command: "PROYOFF"
+    - delay:
+        seconds: 3
+    - service: remote.send_command
+      data:
+        entity_id: remote.proyector
+        command: "PROYOFF"
+    - service: cover.set_cover_position
+      data:
+        entity_id: !secret blackout
+        position: 100
+    - service: cover.set_cover_position
+      data:
+        entity_id: !secret dia
+        position: 100
+    - service: input_boolean.turn_on
+      data:
+        entity_id: input_boolean.adios_pressed
+    - delay:
+        seconds: 10
+    - service: light.turn_off
+      data:
+        entity_id: 
+          - !secret plafon
+          - !secret cama
+          - !secret principal
+          - !secret luna
+    - service: remote.send_command
+      data:
+        entity_id: remote.chimenea
+        command: "CHIMON"
+    - service: input_boolean.turn_on
+      data:
+        entity_id: input_boolean.adios_pressed
+  alias: Adios
+
+
+
+
+############ LUCES LED ###############
+white:
+  sequence:
+    - service: light.turn_off
+      data:
+        entity_id: 
+          - !secret plafon
+          - !secret cama
+    - delay:
+        seconds: 1
+    - service: light.turn_on
+      data:
+        entity_id: 
+          - !secret plafon
+          - !secret cama
+        transition: 2
+        rgb_color: [255,255,255]
+  alias: Led to White
+
+
+pink:
+  sequence:
+    - service: light.turn_off
+      data:
+        entity_id: 
+          - !secret plafon
+          - !secret cama
+          - !secret principal
+    - delay:
+        seconds: 1
+    - service: light.turn_on
+      data:
+        entity_id: 
+          - !secret plafon
+          - !secret cama
+          - !secret luna
+        transition: 2
+        rgb_color: [255,20,147]
+  alias: Led to Pink
+
+
+blue:
+  sequence:
+    - service: light.turn_off
+      data:
+        entity_id: 
+          - !secret plafon
+          - !secret cama
+          - !secret principal
+    - delay:
+        seconds: 1
+    - service: light.turn_on
+      data:
+        entity_id: 
+          - !secret plafon
+          - !secret cama
+          - !secret luna
+        transition: 2
+        rgb_color: [0,0,255]
+  alias: Led to Blue
+
+
+red:
+  sequence:
+    - service: light.turn_off
+      data:
+        entity_id: 
+          - !secret plafon
+          - !secret cama
+          - !secret principal
+    - delay:
+        seconds: 1
+    - service: light.turn_on
+      data:
+        entity_id: 
+          - !secret plafon
+          - !secret cama
+          - !secret luna
+        transition: 2
+        rgb_color: [255,0,0]
+  alias: Led to Red
+
+
+################# PROYECTOR #################
+
+
+hdmi1:
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.proyector
+      command: "PROYHDMI1"
+
+hdmi2:
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.proyector
+      command: "PROYHDMI2"
+
+volup:
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.proyector
+      command: "PROYVU"
+
+voldn:
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.proyector
+      command: "PROYVD"
+
+proyon:
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.proyector
+      command: "PROYON"
+
+proyoff:
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.proyector
+      command: "PROYHDMI2"
+  - service: remote.send_command
+    data:
+      entity_id: remote.proyector
+      command: "PROYOFF"
+  - delay:
+      seconds: 2
+  - service: remote.send_command
+    data:
+      entity_id: remote.proyector
+      command: "PROYOFF"
+
+############## SAT BOX #####################
+satvu:
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.sat
+      command: "SATVU"
+
+satvd:
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.sat
+      command: "SATVD"
+
+satchup:
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.sat
+      command: "SATCU"
+
+satchdn:
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.sat
+      command: "SATCD"
+
+satcero:
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.sat
+      command: "SATCERO"
+
+satuno:
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.sat
+      command: "SATUNO"
+
+satdos:
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.sat
+      command: "SATDOS"
+
+sattres:
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.sat
+      command: "SATTRES"
+
+satcuatro:
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.sat
+      command: "SATCUATRO"
+
+satcinco:
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.sat
+      command: "SATCINCO"
+
+satseis:
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.sat
+      command: "SATSEIS"
+
+satsiete:
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.sat
+      command: "SATSIETE"
+
+satocho:
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.sat
+      command: "SATOCHO"
+
+satnueve:
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.sat
+      command: "SATNUEVE"
+
+
+
+################### CHIMENEA #########################
+chimon:
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.chimenea
+      command: "CHIMON"
+
+chimtemp:
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.chimenea
+      command: "CHIMTEMP"
+
+chimlogs:
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.chimenea
+      command: "CHIMLOGS"
+
+chimlight:
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.chimenea
+      command: "CHIMLIGHT"
+
+################### PERSIANA BLACKOUT#########################
+boveinte:
+  sequence:
+  - service: cover.set_cover_position
+    data:
+      entity_id: !secret blackout
+      position: 20
+
+bocincuenta:
+  sequence:
+  - service: cover.set_cover_position
+    data:
+      entity_id: !secret blackout
+      position: 50
+
+boochenta:
+  sequence:
+  - service: cover.set_cover_position
+    data:
+      entity_id: !secret blackout
+      position: 80
+
+################### PERSIANA DIA#########################
+pdveinte:
+  sequence:
+  - service: cover.set_cover_position
+    data:
+      entity_id: !secret dia
+      position: 20
+
+pdcincuenta:
+  sequence:
+  - service: cover.set_cover_position
+    data:
+      entity_id: !secret dia
+      position: 50
+
+pdochenta:
+  sequence:
+  - service: cover.set_cover_position
+    data:
+      entity_id: !secret dia
+      position: 80
+
+##### PARA AJUSTAR VOLUMEN DEL AMPLIFICADOR ####
+ampvu:
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.proyector
+      command: "AMPVU"
+ampvd:
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.proyector
+      command: "AMPVD"

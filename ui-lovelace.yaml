@@ -1,0 +1,364 @@
+title: LUA Hab 212
+views:
+
+######### INICIO ################
+  - title: Inicio
+    path: inicio
+    icon: mdi:home
+    cards:
+    - type: vertical-stack
+      cards:
+
+      - type: picture
+        image: /local/logo_lua.png
+      - type: markdown
+        content: >
+          ## Red WIFI
+          
+          **LUA-H-212**
+          
+          ## Clave
+          
+          **20370756**
+          
+      
+      - type: horizontal-stack
+        cards:
+        - type: picture
+          image: /local/luces.png
+          title: Luces
+          icon: mdi:light-switch
+          tap_action:
+            action: navigate
+            navigation_path: /lovelace/luces
+      
+        - type: picture
+          image: /local/video.png
+          title: Video
+          icon: mdi:television
+          tap_action:
+            action: navigate
+            navigation_path: /lovelace/video
+    
+        - type: picture
+          image: /local/persiana.png
+          title: Persianas
+          icon: mdi:blinds
+          tap_action:
+            action: navigate
+            navigation_path: /lovelace/persianas
+
+        - type: picture
+          image: /local/chimenea.png
+          title: Chimenea
+          icon: mdi:fire
+          tap_action:
+            action: navigate
+            navigation_path: /lovelace/chimenea
+
+        - type: picture
+          image: /local/inst.png
+          title: Instrucciones
+          icon: mdi:information-outline
+          tap_action:
+            action: navigate
+            navigation_path: /lovelace/instrucciones
+
+
+
+############## LUCES ###############
+  - title: Luces
+    path: luces
+    cards:
+      - type: horizontal-stack
+        cards:  
+        - type: light
+          name: Luz Led
+          entity: !secret plafon
+        - type: light
+          name: Luz Habitación
+          entity: !secret principal
+
+      - type: horizontal-stack
+        cards:
+        - type: entity-button
+          icon: mdi:lightbulb-outline
+          name: Rosa
+          tap_action:
+            action: call-service
+            service: script.pink
+            service_data:
+              entity_id: script.pink
+          entity: script.pink
+
+        - type: entity-button
+          icon: mdi:lightbulb-outline
+          name: Rojo
+          tap_action:
+            action: call-service
+            service: script.red
+            service_data:
+              entity_id: script.red
+          entity: script.red
+
+        - type: entity-button
+          icon: mdi:lightbulb-outline
+          name: Azul
+          tap_action:
+            action: call-service
+            service: script.blue
+            service_data:
+              entity_id: script.blue
+          entity: script.blue
+
+
+      - type: horizontal-stack
+        cards:
+        - type: entity-button
+          name: Hasta Pronto
+          icon: mdi:exit-run
+          tap_action:
+            action: call-service
+            service: script.adios
+            service_data:
+              entity_id: script.adios
+          entity: script.adios
+
+########### VIDEO #############
+
+  - title: Video
+    path: video
+    cards:
+      - type: vertical-stack
+        cards:
+        - type: horizontal-stack
+          cards:
+          - type: entity-button
+            name: Power On
+            icon: mdi:power-on
+            tap_action:
+              action: call-service
+              service: script.proyon
+              service_data:
+                entity_id: script.proyon
+            entity: script.proyon
+        
+          - type: entity-button
+            name: Power Off
+            icon: mdi:power-off
+            tap_action:
+              action: call-service
+              service: script.proyoff
+              service_data:
+                entity_id: script.proyoff
+            entity: script.proyoff
+          
+        - type: horizontal-stack
+          cards:
+          - type: entity-button
+            name: Vol Up
+            icon: mdi:volume-plus
+            tap_action:
+              action: call-service
+              service: script.satvu
+              service_data:
+                entity_id: script.satvu
+            entity: script.satvu
+          
+          - type: entity-button
+            name: Chan Up
+            icon: mdi:chevron-up
+            tap_action:
+              action: call-service
+              service: script.satchup
+              service_data:
+                entity_id: script.satchup
+            entity: script.satchup
+
+
+        - type: horizontal-stack
+          cards:
+          - type: entity-button
+            name: Vol Dn
+            icon: mdi:volume-minus
+            tap_action:
+              action: call-service
+              service: script.satvd
+              service_data:
+                entity_id: script.satvd
+            entity: script.satvd
+
+          - type: entity-button
+            name: Chan Down
+            icon: mdi:chevron-down
+            tap_action:
+              action: call-service
+              service: script.satchdn
+              service_data:
+                entity_id: script.satchdn
+            entity: script.satchdn
+          
+
+        - type: horizontal-stack
+          cards:
+          - type: entity-button
+            name: Streaming
+            icon: mdi:netflix
+            tap_action:
+              action: call-service
+              service: script.hdmi2
+              service_data:
+                entity_id: script.hdmi2
+            entity: script.hdmi2
+
+          - type: entity-button
+            name: SAT TV
+            icon: mdi:television-box
+            tap_action:
+              action: call-service
+              service: script.hdmi1
+              service_data:
+                entity_id: script.hdmi1
+            entity: script.hdmi1
+
+
+######### PERSIANAS ################
+  - title: Persianas
+    path: persianas
+    cards:
+      - type: vertical-stack
+        cards:
+        - type: entities
+          title: Blackout
+          show_header_toggle: false
+          entities:
+          - entity: !secret blackout
+            name: Abierto / Cerrado
+
+        - type: horizontal-stack
+          cards:
+          - type: entity-button
+            name: "::80%::"
+            icon: mdi:weather-night
+            tap_action:
+              action: call-service
+              service: script.boochenta
+              service_data:
+                entity_id: script.boochenta
+            entity: script.boochenta
+
+          - type: entity-button
+            name: "::50%::"
+            icon: mdi:weather-night
+            tap_action:
+              action: call-service
+              service: script.bocincuenta
+              service_data:
+                entity_id: script.bocincuenta
+            entity: script.bocincuenta
+        
+          - type: entity-button
+            name: "::20%::"
+            icon: mdi:weather-night
+            tap_action:
+              action: call-service
+              service: script.boveinte
+              service_data:
+                entity_id: script.boveinte
+            entity: script.boveinte
+
+      - type: vertical-stack
+        cards:
+        - type: entities
+          title: Persiana de día
+          show_header_toggle: false
+          entities:
+          - entity: !secret dia
+            name: Abierto / Cerrado
+        - type: horizontal-stack
+          cards:
+          - type: entity-button
+            name: "::80%::"
+            icon: mdi:weather-night
+            tap_action:
+              action: call-service
+              service: script.pdochenta
+              service_data:
+                entity_id: script.pdochenta
+            entity: script.pdochenta
+          - type: entity-button
+            name: "::50%::"
+            icon: mdi:weather-night
+            tap_action:
+              action: call-service
+              service: script.pdcincuenta
+              service_data:
+                entity_id: script.pdcincuenta
+            entity: script.pdcincuenta
+          - type: entity-button
+            name: "::20%::"
+            icon: mdi:weather-night
+            tap_action:
+              action: call-service
+              service: script.pdveinte
+              service_data:
+                entity_id: script.pdveinte
+            entity: script.pdveinte
+
+######### CHIMENEA ################
+  - title: Chimenea
+    path: chimenea
+    cards:
+      - type: entity-button
+        name: Encender / Apagar
+        icon: mdi:fire
+        tap_action:
+          action: call-service
+          service: script.chimon
+          service_data:
+            entity_id: script.chimon
+        entity: script.chimon
+
+      - type: entity-button
+        name: Activar / Desactivar calefactor
+        icon: mdi:radiator
+        tap_action:
+          action: call-service
+          service: script.chimtemp
+          service_data:
+            entity_id: script.chimtemp
+        entity: script.chimtemp
+
+######### INSTRUCCIONES ################
+  - title: Instrucciones
+    path: instrucciones
+    cards:
+    - type: vertical-stack
+      cards:
+      - type: markdown
+        content: >
+          # Bienvenido a LUA 
+          
+          Para hacer su experiencia mas confortable aquí están las dudas frecuentes:
+          
+          ## Luces
+          
+          Las **luces** se operan desde el  [**Menú Luces**](/lovelace/luces)  y cuentan con escenarios de color que hemos diseñado para ti
+          
+          ## Video
+          
+          El video cuenta con dos modos: TV y Streaming los cuales pueden ser seleccionados en el [**Menú Video**](/lovelace/video)
+          
+          ## Persianas
+          
+          Las **Persianas** se operan por separado en modalidad totalmente abierto, totalmente cerrado o en posición media.
+          
+          ## Chimenea
+          
+          Las **Luces** se operan dsde el menú luces y cuentan con escenarios de color que hemos diseñado para ti
+          
+          ## Salir
+          
+          Antes de  **salir de la habitación** te pedimos presiones el boton _Hasta Pronto_ localizado en el menú **Luces**. Éste apagará la habitación y dará 15 segundos de iluminación antes de apagarse por completo.
+          [Ir a Inicio](/lovelace)
+        

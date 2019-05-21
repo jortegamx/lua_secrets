@@ -1,0 +1,60 @@
+- alias: 'Set theme at startup'
+  initial_state: 'on'
+  trigger:
+   - platform: homeassistant
+     event: start
+  action:
+    service: frontend.set_theme
+    data:
+      name: midnight
+
+- alias: 'Bienvenida'
+  trigger:
+    platform: state
+    entity_id: 
+      - !secret puerta
+    to: 'on'
+  condition:
+    condition: state
+    entity_id: input_boolean.adios_pressed
+    state: 'on'
+  action:
+    service: script.turn_on
+    data:
+        entity_id: script.bienvenida
+
+- alias: 'Luz blanca encendida'
+  trigger:
+    platform: state
+    entity_id: !secret principal
+    to: 'on'
+  action:
+    service: script.turn_on
+    entity_id: script.luz_encendida
+
+- alias: 'Luz blanca apagada'
+  trigger:
+    platform: state
+    entity_id: !secret principal
+    to: 'off'
+  action:
+    service: script.turn_on
+    entity_id: script.luz_apagada
+
+- alias: 'Leds Sync Apagado'
+  trigger:
+    platform: state
+    entity_id: !secret plafon
+    to: 'off'
+  action:
+    service: light.turn_off
+    entity_id: !secret cama
+
+- alias: 'Leds Sync Encendido'
+  trigger:
+    platform: state
+    entity_id: !secret plafon
+    to: 'on'
+  action:
+    service: light.turn_on
+    entity_id: !secret cama
